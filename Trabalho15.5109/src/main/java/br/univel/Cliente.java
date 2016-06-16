@@ -6,13 +6,31 @@ public class Cliente {
 	private String nome;
 	private String endereco;
 	private int numero;
-	private String complemneto;
+	private String complemento;
 	private String bairro;
 	private String cidade;
 	private String estado;
 	private String cep;
 	private String telefone;
 	private String celular;
+
+
+
+	public Cliente(int id, String nome, String endereco, int numero, String complemento, String bairro, String cidade,
+			String estado, String cep, String telefone, String celular) {
+		super();
+		this.id = id;
+		this.nome = nome;
+		this.endereco = endereco;
+		this.numero = numero;
+		this.complemento = complemento;
+		this.bairro = bairro;
+		this.cidade = cidade;
+		this.estado = estado;
+		this.cep = cep;
+		this.telefone = telefone;
+		this.celular = celular;
+	}
 
 
 	public int getId() {
@@ -39,11 +57,11 @@ public class Cliente {
 	public void setNumero(int numero) {
 		this.numero = numero;
 	}
-	public String getComplemneto() {
-		return complemneto;
+	public String getcomplemento() {
+		return complemento;
 	}
-	public void setComplemneto(String complemneto) {
-		this.complemneto = complemneto;
+	public void setcomplemento(String complemento) {
+		this.complemento = complemento;
 	}
 	public String getBairro() {
 		return bairro;
