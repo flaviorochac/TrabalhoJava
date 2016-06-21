@@ -57,10 +57,10 @@ public class Cliente {
 	public void setNumero(int numero) {
 		this.numero = numero;
 	}
-	public String getcomplemento() {
+	public String getComplemento() {
 		return complemento;
 	}
-	public void setcomplemento(String complemento) {
+	public void setComplemento(String complemento) {
 		this.complemento = complemento;
 	}
 	public String getBairro() {

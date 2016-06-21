@@ -14,7 +14,7 @@ public class ClienteReader {
 		ArrayList<String> lista = new ArrayList<>();
 		try {
 			FileReader fr;
-			fr = new FileReader(new File("listaCliente.txt"));
+			fr = new FileReader(new File("Clientes.csv"));
 			BufferedReader br = new BufferedReader(fr);
 			String linha = null;
 			while ((linha = br.readLine()) != null) {
