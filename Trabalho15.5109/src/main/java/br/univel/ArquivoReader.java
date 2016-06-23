@@ -26,7 +26,6 @@ public class ArquivoReader {
 			e.printStackTrace();
 		}
 		return lista;
-
 	}
 
 	public static void main(String[] args) {

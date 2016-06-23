@@ -15,8 +15,6 @@ public class ClienteParser {
 
 		listaClienteStr.forEach(e -> {
 					listaClientePrd.add(getCliente(e));
-
-
 		});
 
 		return listaClientePrd;
