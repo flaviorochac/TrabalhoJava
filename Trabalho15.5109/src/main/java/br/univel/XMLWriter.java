@@ -7,8 +7,11 @@ package br.univel;
 
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
@@ -24,22 +27,26 @@ public class XMLWriter {
         
         String clienteXML = xs.toXML(listaClt);
         File file = new File("Clientes.xml");
-        PrintWriter print = new PrintWriter(file);
-        print.write(clienteXML);
-        print.flush();
-        print.close(); 
+        try (PrintWriter print = new PrintWriter(file)) {
+            print.write(clienteXML);
+            print.flush();
+        } 
         
     }
     
-     public void GravarXMLProduto(List<Produto> listaPrd) throws FileNotFoundException{
+     public void GravarXMLProduto(List<Produto> listaPrd) throws FileNotFoundException, IOException{
         
         String produtoXML = xs.toXML(listaPrd);
         System.out.println(produtoXML);
         File file = new File("Produto.xml");
-        PrintWriter print = new PrintWriter(file);
-        print.write(produtoXML);
-        print.flush();
-        print.close();   
+        BufferedWriter out = new BufferedWriter(new FileWriter(file));
+        out.write(produtoXML);
+       // PrintWriter print = new PrintWriter(file);
+       // print.write(produtoXML);
+       // print.flush();
+       // print.close();
+       
+       
         }
     
     

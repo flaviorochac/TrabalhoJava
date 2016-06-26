@@ -49,7 +49,7 @@ public class Principal {
 		});
                 
                 XMLWriter xw = new XMLWriter();
-                //xw.GravarXMLCliente(listaClt);
+                xw.GravarXMLCliente(listaClt);
                 xw.GravarXMLProduto(listaPrd);
                 
                    
