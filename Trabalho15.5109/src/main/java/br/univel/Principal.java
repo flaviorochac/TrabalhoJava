@@ -1,5 +1,12 @@
 package br.univel;
 
+
+import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.io.xml.DomDriver;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
+import java.io.BufferedOutputStream;
+import java.io.File;
 import java.util.List;
 
 public class Principal {
@@ -40,7 +47,15 @@ public class Principal {
 			System.out.println("Telefone: " + e.getTelefone());
 			System.out.println("Celular: " + e.getCelular());
 		});
-
+                
+                XMLWriter xw = new XMLWriter();
+                //xw.GravarXMLCliente(listaClt);
+                xw.GravarXMLProduto(listaPrd);
+                
+                   
+                
+                
+          
 //		lista.forEach(e -> System.out.println(e));
 //
 //		lista.forEach(e -> {
@@ -49,6 +64,9 @@ public class Principal {
 //
 //		lista.forEach(System.out::println);
 	}
+
+
 }
+
 
 

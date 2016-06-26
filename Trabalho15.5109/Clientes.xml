@@ -1,0 +1,67 @@
+<list>
+  <br.univel.Cliente>
+    <id>1</id>
+    <nome>Joao das Couves</nome>
+    <endereco>Rua das Couves</endereco>
+    <numero>300</numero>
+    <complemento>esquina</complemento>
+    <bairro>centro</bairro>
+    <cidade>cascavel</cidade>
+    <estado>parana</estado>
+    <cep>12345678</cep>
+    <telefone>99990001</telefone>
+    <celular>99513254</celular>
+  </br.univel.Cliente>
+  <br.univel.Cliente>
+    <id>2</id>
+    <nome>Joao das Batatas</nome>
+    <endereco>Rua das Batatas</endereco>
+    <numero>450</numero>
+    <complemento>esquina</complemento>
+    <bairro>Centro</bairro>
+    <cidade>Cascavel</cidade>
+    <estado>Parana</estado>
+    <cep>123456789</cep>
+    <telefone>32432154</telefone>
+    <celular>99990002</celular>
+  </br.univel.Cliente>
+  <br.univel.Cliente>
+    <id>3</id>
+    <nome>Joao das Cenouras</nome>
+    <endereco>Rua das Cenouras</endereco>
+    <numero>302</numero>
+    <complemento>Quase esquina</complemento>
+    <bairro>Centro</bairro>
+    <cidade>Florianopolis</cidade>
+    <estado>Santa Catarina</estado>
+    <cep>84152321</cep>
+    <telefone>35462154</telefone>
+    <celular>99563214</celular>
+  </br.univel.Cliente>
+  <br.univel.Cliente>
+    <id>4</id>
+    <nome>Joao das Beterrabas</nome>
+    <endereco>Rua das beterrabas</endereco>
+    <numero>320</numero>
+    <complemento>Perto do bar</complemento>
+    <bairro>centro</bairro>
+    <cidade>Sao Paulo</cidade>
+    <estado>SP</estado>
+    <cep>6666666</cep>
+    <telefone>36598541</telefone>
+    <celular>96543215</celular>
+  </br.univel.Cliente>
+  <br.univel.Cliente>
+    <id>5</id>
+    <nome>Josao do Java</nome>
+    <endereco>Rua do NullPointerEx</endereco>
+    <numero>145</numero>
+    <complemento>principal</complemento>
+    <bairro>ram</bairro>
+    <cidade>jvm</cidade>
+    <estado>MS</estado>
+    <cep>6547852</cep>
+    <telefone>66325415</telefone>
+    <celular>98547652</celular>
+  </br.univel.Cliente>
+</list>
