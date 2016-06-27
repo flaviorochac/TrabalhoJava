@@ -5,7 +5,6 @@ import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 
-import org.h2.store.LimitInputStream;
 import org.junit.Test;
 
 public class ArquivoReaderTest {

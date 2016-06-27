@@ -28,13 +28,13 @@ public class Principal {
 		ClienteParser parserc = new ClienteParser();
 		List<Cliente> listaClt = parserc.getCliente(listac);
 
-		listaPrd.forEach(e -> {
+		 /* listaPrd.forEach(e -> {
 			System.out.println("Id: " + e.getId());
 			System.out.println("Descrição: " + e.getDescricao());
 			System.out.println("Preço: " + e.getPreco());
-		});
+		}); */
 
-		listaClt.forEach(e -> {
+		/* listaClt.forEach(e -> {
 			System.out.println("Id: " + e.getId());
 			System.out.println("Nome: " + e.getNome());
 			System.out.println("Endereço: " + e.getEndereco());
@@ -46,16 +46,24 @@ public class Principal {
 			System.out.println("Cep: " + e.getCep());
 			System.out.println("Telefone: " + e.getTelefone());
 			System.out.println("Celular: " + e.getCelular());
-		});
+		}); */
                 
                 XMLWriter xw = new XMLWriter();
                 xw.GravarXMLCliente(listaClt);
                 xw.GravarXMLProduto(listaPrd);
                 
+                XMLReader xr = new XMLReader();
+                xr.lerClientes();   
+                xr.lerProdutos();
+                
+                H2Con h2 = new H2Con();
+                h2.abrirConexao();
+                h2.resetProduto();
+                h2.createProduto(listaPrd);
+                
+                
                    
-                
-                
-          
+
 //		lista.forEach(e -> System.out.println(e));
 //
 //		lista.forEach(e -> {

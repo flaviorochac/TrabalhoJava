@@ -38,9 +38,10 @@ public class XMLWriter {
         
         String produtoXML = xs.toXML(listaPrd);
         System.out.println(produtoXML);
-        File file = new File("Produto.xml");
+        File file = new File("Produtos.xml");
         BufferedWriter out = new BufferedWriter(new FileWriter(file));
         out.write(produtoXML);
+        out.close();
        // PrintWriter print = new PrintWriter(file);
        // print.write(produtoXML);
        // print.flush();
