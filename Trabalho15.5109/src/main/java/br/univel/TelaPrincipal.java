@@ -35,7 +35,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         tabela = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        Cliente = new javax.swing.JButton();
+        Produto = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(792, 400));
@@ -53,10 +54,17 @@ public class TelaPrincipal extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tabela);
 
-        jButton1.setText("jButton1");
-        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+        Cliente.setText("Popula Clientes");
+        Cliente.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton1MouseClicked(evt);
+                ClienteMouseClicked(evt);
+            }
+        });
+
+        Produto.setText("Popula Produto");
+        Produto.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ProdutoMouseClicked(evt);
             }
         });
 
@@ -66,15 +74,19 @@ public class TelaPrincipal extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 792, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGap(315, 315, 315)
-                .addComponent(jButton1)
+                .addGap(71, 71, 71)
+                .addComponent(Cliente)
+                .addGap(120, 120, 120)
+                .addComponent(Produto)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 55, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Cliente)
+                    .addComponent(Produto))
                 .addGap(48, 48, 48)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -82,16 +94,18 @@ public class TelaPrincipal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+    private void ClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ClienteMouseClicked
         preencheTabela();
-    }//GEN-LAST:event_jButton1MouseClicked
+    }//GEN-LAST:event_ClienteMouseClicked
+
+    private void ProdutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ProdutoMouseClicked
+        preencheTabelaProduto();
+    }//GEN-LAST:event_ProdutoMouseClicked
 
     /**
      * @param args the command line arguments
      */
     protected void preencheTabela() {
-
-		List<Cliente> lista = new ArrayList<>();
 
 		ClienteReader readerc = new ClienteReader();
 		List<String> listac = readerc.lerArquivoCliente();
@@ -103,6 +117,20 @@ public class TelaPrincipal extends javax.swing.JFrame {
 		tabela.setModel(model);
 
     }
+    
+    protected void preencheTabelaProduto() {
+
+		ArquivoReader reader = new ArquivoReader();
+		List<String> listap = reader.lerArquivo();
+
+		ProdutoParser parser = new ProdutoParser();
+		List<Produto> listaPrd = parser.getProduto(listap);
+
+		ProdutoModel model = new ProdutoModel(listaPrd);
+		tabela.setModel(model);
+
+    }
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -140,7 +168,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
  
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton Cliente;
+    private javax.swing.JButton Produto;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tabela;
     // End of variables declaration//GEN-END:variables
