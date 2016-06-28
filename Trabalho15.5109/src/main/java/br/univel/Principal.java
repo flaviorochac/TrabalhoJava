@@ -13,9 +13,6 @@ public class Principal {
 
 	public static void main(String[] args) throws Exception {
 
-//		URLReader reader = new URLReader();
-//		List<String> lista = reader.lerUrl();
-
 		ArquivoReader reader = new ArquivoReader();
 		List<String> lista = reader.lerArquivo();
 
@@ -28,26 +25,6 @@ public class Principal {
 		ClienteParser parserc = new ClienteParser();
 		List<Cliente> listaClt = parserc.getCliente(listac);
 
-		 /* listaPrd.forEach(e -> {
-			System.out.println("Id: " + e.getId());
-			System.out.println("Descrição: " + e.getDescricao());
-			System.out.println("Preço: " + e.getPreco());
-		}); */
-
-		/* listaClt.forEach(e -> {
-			System.out.println("Id: " + e.getId());
-			System.out.println("Nome: " + e.getNome());
-			System.out.println("Endereço: " + e.getEndereco());
-			System.out.println("Numero: " + e.getNumero());
-			System.out.println("Complemento: " + e.getComplemento());
-			System.out.println("Bairro: " + e.getBairro());
-			System.out.println("Cidade: " + e.getCidade());
-			System.out.println("Estado: " + e.getEstado());
-			System.out.println("Cep: " + e.getCep());
-			System.out.println("Telefone: " + e.getTelefone());
-			System.out.println("Celular: " + e.getCelular());
-		}); */
-                
                 XMLWriter xw = new XMLWriter();
                 xw.GravarXMLCliente(listaClt);
                 xw.GravarXMLProduto(listaPrd);
@@ -60,17 +37,15 @@ public class Principal {
                 h2.abrirConexao();
                 h2.resetProduto();
                 h2.createProduto(listaPrd);
+                h2.readProduto();
+                h2.resetCliente();
+                h2.createCliente(listaClt);
+                h2.readCliente();
+                
+                TelaPrincipal telaP = new TelaPrincipal();
+                telaP.setVisible(true);
                 
                 
-                   
-
-//		lista.forEach(e -> System.out.println(e));
-//
-//		lista.forEach(e -> {
-//			System.out.print(e);
-//		});
-//
-//		lista.forEach(System.out::println);
 	}
 
 

@@ -8,6 +8,9 @@ import java.util.regex.Pattern;
 
 public class ClienteParser {
 	int cont = 1;
+        
+        public List<Cliente> listaTabela;
+        
 	public List<Cliente> getCliente(List<String> listaClienteStr) {
 		List<Cliente> listaClientePrd = new ArrayList<>();
 

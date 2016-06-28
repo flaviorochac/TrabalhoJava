@@ -25,6 +25,17 @@ public class H2Con {
 		
 		
 	}
+        
+        public void resetCliente() throws SQLException {
+
+		String sql = "DELETE FROM CLIENTE";
+		try (PreparedStatement ps = con.prepareStatement(sql)) {
+			int res = ps.executeUpdate();
+			System.out.println(res + " tabela limpa!");
+		}
+		
+		
+	}
 
 	public void abrirConexao() throws SQLException {
 
@@ -60,7 +71,37 @@ public class H2Con {
                 System.out.println(" registros alterados.");
            }
         
-	public void read() {
+        public void createCliente(List<Cliente> listaClt) throws SQLException {
+		
+                listaClt.forEach(e -> {
+                        PreparedStatement ps;
+                    try {
+                        
+                        ps = con.prepareStatement("INSERT INTO CLIENTE (ID, NOME, ENDERECO, NUMERO, COMPLEMENTO, BAIRRO, CIDADE, "
+                                + "ESTADO, CEP, TELEFONE, CELULAR) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                        ps.setInt(1, e.getId());
+                        ps.setString(2, e.getNome());
+                        ps.setString(3, e.getEndereco());
+                        ps.setInt(4, e.getNumero());
+                        ps.setString(5, e.getComplemento());
+                        ps.setString(6, e.getBairro());
+                        ps.setString(7, e.getCidade());
+                        ps.setString(8, e.getEstado());
+                        ps.setString(9, e.getCep());
+                        ps.setString(10, e.getTelefone());
+                        ps.setString(11, e.getCelular());
+                        
+                        int res = ps.executeUpdate();
+                        ps.close();
+                        // Aqui não garante que executa o close.
+                    } catch (SQLException ex) {
+                        Logger.getLogger(H2Con.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    } );
+                System.out.println(" registros alterados.");
+           }
+        
+	public void readProduto() {
 		
 		Statement st = null;
 		ResultSet result = null;
@@ -70,8 +111,41 @@ public class H2Con {
 				result = st.executeQuery("SELECT * FROM PRODUTO");
                                     while (result.next()) {
 					int id = result.getInt(1);
-					String nome = result.getString("nome");
-					System.out.println(id + " " + nome);
+					String descricao = result.getString(2);
+                                        BigDecimal preco = result.getBigDecimal(3);
+					System.out.println(id + " " + descricao + " " + preco);
+				}
+			} finally {
+				if (st != null) st.close();
+				if (result != null) result.close();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+	}
+        
+        public void readCliente() {
+		
+		Statement st = null;
+		ResultSet result = null;
+		try {
+			try {
+				st = con.createStatement();
+				result = st.executeQuery("SELECT * FROM CLIENTE");
+                                    while (result.next()) {
+					int id = result.getInt(1);
+					String nome = result.getString(2);
+                                        String endereco = result.getString(3);
+                                        int numero = result.getInt(4);
+                                        String complemento = result.getString(5);
+                                        String bairro = result.getString(6);
+                                        String cidade = result.getString(7);
+                                        String estado = result.getString(8);
+                                        String cep = result.getString(9);
+                                        String telefone = result.getString(10);
+                                        String celular = result.getString(11);
+					System.out.println(id + " " + nome + " " + endereco + " " + numero + " " + complemento + " " + bairro + " " + cidade + " " + estado + " " + cep + " " + telefone + " " + celular);
 				}
 			} finally {
 				if (st != null) st.close();
