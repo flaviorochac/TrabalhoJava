@@ -5,17 +5,33 @@
  */
 package br.univel;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
+import java.math.BigDecimal;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author luiz_
  */
 public class TelaCadastroProduto extends javax.swing.JFrame {
+    
+    H2Con h2 = new H2Con();
+    private final TelaPrincipal telaPrincipal;
+    
+    
 
     /**
      * Creates new form TelaCadastro
      */
-    public TelaCadastroProduto() {
+    public TelaCadastroProduto(TelaPrincipal tp) {
         initComponents();
+        telaPrincipal = tp;
+        setVisible(true);
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
     }
 
     /**
@@ -40,20 +56,14 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
         jlIdProduto2 = new javax.swing.JLabel();
         jbInserirProduto = new javax.swing.JButton();
         jbRemoverProduto = new javax.swing.JButton();
+        jbVoltar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Operações Produto");
         setName("TelaProduto"); // NOI18N
-
-        tfIdProduto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tfIdProdutoActionPerformed(evt);
-            }
-        });
-
-        ftDeletar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ftDeletarActionPerformed(evt);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
             }
         });
 
@@ -71,16 +81,23 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
 
         jbInserirProduto.setText("Inserir");
         jbInserirProduto.setAlignmentY(0.0F);
+        jbInserirProduto.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jbInserirProdutoMouseClicked(evt);
+            }
+        });
         jbInserirProduto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbInserirProdutoActionPerformed(evt);
+                none(evt);
             }
         });
 
         jbRemoverProduto.setText("Remover Produto");
-        jbRemoverProduto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbRemoverProdutoActionPerformed(evt);
+
+        jbVoltar.setText("Voltar");
+        jbVoltar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jbVoltarMouseClicked(evt);
             }
         });
 
@@ -104,10 +121,6 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
                             .addComponent(tfDescricaoProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(tfIdProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap(46, Short.MAX_VALUE))))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpProdutoLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jlIdProduto1)
-                .addGap(123, 123, 123))
             .addGroup(jpProdutoLayout.createSequentialGroup()
                 .addGap(110, 110, 110)
                 .addComponent(jlProdutoDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -125,6 +138,13 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
                         .addGap(118, 118, 118)
                         .addComponent(jbRemoverProduto)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpProdutoLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jpProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpProdutoLayout.createSequentialGroup()
+                        .addComponent(jlIdProduto1)
+                        .addGap(123, 123, 123))
+                    .addComponent(jbVoltar, javax.swing.GroupLayout.Alignment.TRAILING)))
         );
         jpProdutoLayout.setVerticalGroup(
             jpProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -153,7 +173,9 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
                     .addComponent(jlProdutoDelete))
                 .addGap(18, 18, 18)
                 .addComponent(jbRemoverProduto)
-                .addGap(34, 34, 34))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jbVoltar)
+                .addGap(5, 5, 5))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -170,21 +192,34 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void tfIdProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfIdProdutoActionPerformed
+    private void none(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_none
         // TODO add your handling code here:
-    }//GEN-LAST:event_tfIdProdutoActionPerformed
+    }//GEN-LAST:event_none
 
-    private void jbRemoverProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbRemoverProdutoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jbRemoverProdutoActionPerformed
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        
+    }//GEN-LAST:event_formWindowClosed
 
-    private void ftDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ftDeletarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ftDeletarActionPerformed
+    private void jbVoltarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbVoltarMouseClicked
+        telaPrincipal.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jbVoltarMouseClicked
 
-    private void jbInserirProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbInserirProdutoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jbInserirProdutoActionPerformed
+    private void jbInserirProdutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbInserirProdutoMouseClicked
+        try {
+            h2.abrirConexao();
+        } catch (SQLException ex) {
+            Logger.getLogger(TelaCadastroProduto.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        int id = Integer.parseInt(tfIdProduto.getText());
+        String descricao = tfDescricaoProduto.getText();
+        BigDecimal preco = new BigDecimal(tfPrecoProduto.getText());
+        try {
+            h2.CadastrarProduto(id, descricao, preco);
+        } catch (SQLException ex) {
+            Logger.getLogger(TelaCadastroProduto.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jbInserirProdutoMouseClicked
 
     /**
      * @param args the command line arguments
@@ -217,7 +252,7 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TelaCadastroProduto().setVisible(true);
+                //new TelaCadastroProduto().setVisible(true);
             }
         });
     }
@@ -226,6 +261,7 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
     private javax.swing.JTextField ftDeletar;
     private javax.swing.JButton jbInserirProduto;
     private javax.swing.JButton jbRemoverProduto;
+    private javax.swing.JButton jbVoltar;
     private javax.swing.JLabel jlDescricaoProduto;
     private javax.swing.JLabel jlIdProduto;
     private javax.swing.JLabel jlIdProduto1;

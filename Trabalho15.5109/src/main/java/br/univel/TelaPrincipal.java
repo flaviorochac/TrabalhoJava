@@ -9,22 +9,29 @@ import javax.swing.table.TableModel;
 import br.univel.ClienteModel;
 import java.util.List;
 import br.univel.Cliente;
+import java.awt.Dimension;
+import java.awt.Toolkit;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author Tgamer
  */
 public class TelaPrincipal extends javax.swing.JFrame {
-    
+    H2Con h2 = new H2Con();
 
     List<Cliente> listaClt = new ArrayList<>();
     List<Produto> listaPrd = new ArrayList<>();
     
     TelaPrincipal(List<Cliente> lista, List<Produto> listap) {
         initComponents();
-        this.listaClt = lista;
-        this.listaPrd = listap;
+        //this.listaClt = lista;
+        //this.listaPrd = listap;
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
     }
 
     /**
@@ -36,14 +43,22 @@ public class TelaPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
+        jspTabela = new javax.swing.JScrollPane();
         tabela = new javax.swing.JTable();
-        Cliente = new javax.swing.JButton();
-        Produto = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
+        jbCliente = new javax.swing.JButton();
+        jbProduto = new javax.swing.JButton();
+        jlwhatever = new javax.swing.JLabel();
+        jlOperacoes = new javax.swing.JLabel();
+        jbCadastroProduto = new javax.swing.JButton();
+        jbCadastrarCliente = new javax.swing.JButton();
+        jbVendas = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setLocation(new java.awt.Point(0, 0));
         setMinimumSize(new java.awt.Dimension(792, 400));
+
+        jspTabela.setMaximumSize(new java.awt.Dimension(1000000, 1000000));
+        jspTabela.setVerifyInputWhenFocusTarget(false);
 
         tabela.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -56,72 +71,135 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(tabela);
+        jspTabela.setViewportView(tabela);
 
-        Cliente.setText("Popula Clientes");
-        Cliente.addMouseListener(new java.awt.event.MouseAdapter() {
+        jbCliente.setText("Popula Clientes");
+        jbCliente.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                ClienteMouseClicked(evt);
+                jbClienteMouseClicked(evt);
             }
         });
 
-        Produto.setText("Popula Produto");
-        Produto.addMouseListener(new java.awt.event.MouseAdapter() {
+        jbProduto.setText("Popula Produto");
+        jbProduto.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                ProdutoMouseClicked(evt);
+                jbProdutoMouseClicked(evt);
             }
         });
 
-        jLabel1.setText("Leitura de Dados do Banco");
+        jlwhatever.setText("Leitura de Dados do Banco");
+
+        jlOperacoes.setText("Operações");
+
+        jbCadastroProduto.setText("Cadastro Produto");
+        jbCadastroProduto.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jbCadastroProdutoMouseClicked(evt);
+            }
+        });
+
+        jbCadastrarCliente.setText("Cadastrar Cliente");
+
+        jbVendas.setText("Tela de Vendas");
+        jbVendas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jbVendasMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 792, Short.MAX_VALUE)
+            .addComponent(jspTabela, javax.swing.GroupLayout.DEFAULT_SIZE, 792, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(77, 77, 77)
+                .addComponent(jlwhatever)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jlOperacoes)
+                .addGap(200, 200, 200))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(Cliente)
+                        .addComponent(jbCliente)
                         .addGap(45, 45, 45)
-                        .addComponent(Produto))
+                        .addComponent(jbProduto))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(77, 77, 77)
-                        .addComponent(jLabel1)))
+                        .addGap(306, 306, 306)
+                        .addComponent(jbCadastroProduto)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jbCadastrarCliente)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jbVendas)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(21, Short.MAX_VALUE)
-                .addComponent(jLabel1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jlwhatever)
+                    .addComponent(jlOperacoes))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Cliente)
-                    .addComponent(Produto))
-                .addGap(38, 38, 38)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jbCliente)
+                    .addComponent(jbProduto))
+                .addGap(4, 4, 4)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jbCadastroProduto)
+                    .addComponent(jbCadastrarCliente)
+                    .addComponent(jbVendas))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jspTabela, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void ClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ClienteMouseClicked
-        preencheTabela();
-    }//GEN-LAST:event_ClienteMouseClicked
+    private void jbClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbClienteMouseClicked
+        try {
+            preencheTabela();
+        } catch (SQLException ex) {
+            Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jbClienteMouseClicked
 
-    private void ProdutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ProdutoMouseClicked
-        preencheTabelaProduto();
-    }//GEN-LAST:event_ProdutoMouseClicked
+    private void jbProdutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbProdutoMouseClicked
+        try {
+            preencheTabelaProduto();
+        } catch (SQLException ex) {
+            Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jbProdutoMouseClicked
+
+    private void jbCadastroProdutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbCadastroProdutoMouseClicked
+       CadastrarProduto();
+    }//GEN-LAST:event_jbCadastroProdutoMouseClicked
+
+    private void jbVendasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbVendasMouseClicked
+        TelaVendas();
+    }//GEN-LAST:event_jbVendasMouseClicked
 
     /**
      * @param args the command line arguments
      */
-    protected void preencheTabela() {
-                H2Con h2 = new H2Con();
-		//ClienteReader readerc = new ClienteReader();
-		//List<String> listac = readerc.lerArquivoCliente();
+    protected void CadastrarProduto(){
+       this.setVisible(false); 
+       TelaCadastroProduto tcp = new TelaCadastroProduto(this);
+        
+    }
+    
+    protected void TelaVendas(){
+       this.setVisible(false); 
+       TelaVendas tcp = new TelaVendas(this);
+       tcp.setVisible(true);
+        
+    }
+    
+    protected void preencheTabela() throws SQLException {
+                h2.abrirConexao();
+                listaClt = h2.readClienteBanco();
 
 		//ClienteParser parserc = new ClienteParser();
 		//List<Cliente> listaClt = parserc.getCliente(listac);
@@ -131,8 +209,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     }
     
-    protected void preencheTabelaProduto() {
-
+    protected void preencheTabelaProduto() throws SQLException {
+                h2.abrirConexao();
+                listaPrd = h2.readProdutoBanco();
 		//ArquivoReader reader = new ArquivoReader();
 		//List<String> listap = reader.lerArquivo();
 
@@ -180,10 +259,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton Cliente;
-    private javax.swing.JButton Produto;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton jbCadastrarCliente;
+    private javax.swing.JButton jbCadastroProduto;
+    private javax.swing.JButton jbCliente;
+    private javax.swing.JButton jbProduto;
+    private javax.swing.JButton jbVendas;
+    private javax.swing.JLabel jlOperacoes;
+    private javax.swing.JLabel jlwhatever;
+    private javax.swing.JScrollPane jspTabela;
     private javax.swing.JTable tabela;
     // End of variables declaration//GEN-END:variables
 }
