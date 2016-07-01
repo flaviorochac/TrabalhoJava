@@ -15,6 +15,13 @@ import javax.swing.table.AbstractTableModel;
 public class ClienteModel extends AbstractTableModel {
     
     private List<Cliente> lista;
+    private String[] columnNames = {"Id", "Nome", "Endereço", "Número", "Complemento", "Bairro", "Cidade", "Estado",
+     "Cep", "Telefone", "Celular"};
+    
+    @Override
+    public String getColumnName(int index) {
+        return columnNames[index];
+    }
 
     ClienteModel(List<Cliente> listac) {
         this.lista = listac;
