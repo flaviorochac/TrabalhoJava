@@ -27,7 +27,7 @@ public void imprimirProdutos() throws JRException {
 		JasperPrint jp;
 		try {
 			jp = JasperFillManager.fillReport(arq, null,d.getCon());
-			JasperViewer jasperViewer = new JasperViewer(jp);
+			JasperViewer jasperViewer = new JasperViewer(jp, false);
 			jasperViewer.setBounds(50, 50, 320, 240);
 			jasperViewer.setLocationRelativeTo(null);
 			jasperViewer.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -56,7 +56,7 @@ public void imprimirProdutos() throws JRException {
 		JasperPrint jp;
 		try {
 			jp = JasperFillManager.fillReport(arq, null,d.getCon());
-			JasperViewer jasperViewer = new JasperViewer(jp);
+			JasperViewer jasperViewer = new JasperViewer(jp, false);
 			jasperViewer.setBounds(50, 50, 320, 240);
 			jasperViewer.setLocationRelativeTo(null);
 			jasperViewer.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -84,7 +84,7 @@ public void imprimirProdutos() throws JRException {
 		JasperPrint jp;
 		try {
 			jp = JasperFillManager.fillReport(arq, null,d.getCon());
-			JasperViewer jasperViewer = new JasperViewer(jp);
+			JasperViewer jasperViewer = new JasperViewer(jp, false);
 			jasperViewer.setBounds(50, 50, 320, 240);
 			jasperViewer.setLocationRelativeTo(null);
 			jasperViewer.setExtendedState(JFrame.MAXIMIZED_BOTH);

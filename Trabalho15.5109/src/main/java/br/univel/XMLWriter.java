@@ -21,24 +21,33 @@ import java.util.List;
  */
 public class XMLWriter {
     
-    XStream xs = new XStream(new DomDriver());    
+    XStream xs = new XStream(new DomDriver());
+    String xmlCliente,xmlProduto;
+    
+    public String getxmlCliente(){
+        return xmlCliente;
+    }
+    public String getxmlProduto(){
+        return xmlProduto;
+    }
     
     public void GravarXMLCliente(List<Cliente> listaClt) throws FileNotFoundException{
         
         String clienteXML = xs.toXML(listaClt);
-        //System.out.println(clienteXML);
+        this.xmlCliente = clienteXML;
         File file = new File("Clientes.xml");
         try (PrintWriter print = new PrintWriter(file)) {
             print.write(clienteXML);
             print.flush();
-        } 
+        }
+        
         
     }
     
      public void GravarXMLProduto(List<Produto> listaPrd) throws FileNotFoundException, IOException{
         
         String produtoXML = xs.toXML(listaPrd);
-        //System.out.println(produtoXML);
+        this.xmlProduto = produtoXML;
         File file = new File("Produtos.xml");
         BufferedWriter out = new BufferedWriter(new FileWriter(file));
         out.write(produtoXML);

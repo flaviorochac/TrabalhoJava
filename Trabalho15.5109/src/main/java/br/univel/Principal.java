@@ -45,8 +45,6 @@ public class Principal {
                 List<Produto> listaPrdH2;
                 listaCltH2 = h2.readClienteBanco();
                 listaPrdH2 = h2.readProdutoBanco();
-                LerRelatorio lr = new LerRelatorio();
-                lr.imprimirProdutos();
                 
                 TelaPrincipal telaP = new TelaPrincipal(listaCltH2, listaPrdH2);
                 telaP.setVisible(true);
