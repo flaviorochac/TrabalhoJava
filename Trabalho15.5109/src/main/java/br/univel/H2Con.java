@@ -17,6 +17,15 @@ public class H2Con {
 
 	private Connection con;
 
+	public Connection getCon() throws SQLException {
+		con = abrirConexao2(con);
+		return con;
+	}
+
+	public void setCon(Connection con) {
+		this.con = con;
+	}
+
 	public void resetProduto() throws SQLException {
 
 		String sql = "DELETE FROM PRODUTO";
@@ -68,6 +77,14 @@ public class H2Con {
 		String pass = "sa";
 		con = DriverManager.getConnection(url, user, pass);
 
+	}
+	public Connection abrirConexao2(Connection con2) throws SQLException {
+
+		String url = "jdbc:h2:~/teste";
+		String user = "sa";
+		String pass = "sa";
+		con2 = DriverManager.getConnection(url, user, pass);
+		return con2;
 	}
 
 	public void fecharConexao() throws SQLException {
@@ -237,6 +254,32 @@ public class H2Con {
                 return listaPrd;
 
 	}
+        public List<Vendas> readVendasBanco() {
+    		
+    		Statement st = null;
+    		ResultSet result = null;
+    		List<Vendas> listaVendas = new ArrayList<>();
+                    try {
+    			try {
+    				st = con.createStatement();
+    				result = st.executeQuery("SELECT * FROM VENDAS LIMIT 15000");
+                    while (result.next()) {
+                    	Vendas v = new Vendas();
+                        v.setId(result.getInt(1));
+                        v.setDescricao(result.getString(2));
+                        v.setValor(result.getFloat(3));
+                        listaVendas.add(v);
+                                        }
+    			} finally {
+    				if (st != null) st.close();
+    				if (result != null) result.close();
+    			}
+    		} catch (SQLException e) {
+    			e.printStackTrace();
+    		}
+                    return listaVendas;
+
+    	}
         
         public void readCliente() {
 		
