@@ -48,6 +48,16 @@ public class H2Con {
 		
 	}
         
+        void DeleteCliente(int id) throws SQLException {
+        
+                String sql = "DELETE FROM CLIENTE WHERE ID = " + id;
+		try (PreparedStatement ps = con.prepareStatement(sql)) {
+			int res = ps.executeUpdate();
+			System.out.println(res + " tabela limpa!");
+		}
+            
+        }
+        
         public void resetVendas() throws SQLException {
 
 		String sql = "DELETE FROM VENDAS";
@@ -420,6 +430,8 @@ public class H2Con {
 	public static void main(String[] args) {
             new H2Con();
 	}
+
+    
 
 
 }

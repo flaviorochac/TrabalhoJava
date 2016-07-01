@@ -92,7 +92,7 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
             }
         });
 
-        jbRemoverProduto.setText("Remover Produto");
+        jbRemoverProduto.setText("Deletar Produto");
         jbRemoverProduto.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jbRemoverProdutoMouseClicked(evt);
@@ -110,7 +110,20 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
         jpProduto.setLayout(jpProdutoLayout);
         jpProdutoLayout.setHorizontalGroup(
             jpProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpProdutoLayout.createSequentialGroup()
+                .addGap(110, 110, 110)
+                .addComponent(jlProdutoDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tfDeletar, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 147, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpProdutoLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jpProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpProdutoLayout.createSequentialGroup()
+                        .addComponent(jlIdProduto1)
+                        .addGap(123, 123, 123))
+                    .addComponent(jbVoltar, javax.swing.GroupLayout.Alignment.TRAILING)))
+            .addGroup(jpProdutoLayout.createSequentialGroup()
                 .addContainerGap(36, Short.MAX_VALUE)
                 .addGroup(jpProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jlPreçoProduto, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -118,6 +131,9 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
                     .addComponent(jlIdProduto, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jpProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jpProdutoLayout.createSequentialGroup()
+                        .addComponent(jbRemoverProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpProdutoLayout.createSequentialGroup()
                         .addComponent(tfPrecoProduto)
                         .addGap(171, 171, 171))
@@ -127,29 +143,14 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
                             .addComponent(tfIdProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap(46, Short.MAX_VALUE))))
             .addGroup(jpProdutoLayout.createSequentialGroup()
-                .addGap(110, 110, 110)
-                .addComponent(jlProdutoDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jpProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jlIdProduto2, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tfDeletar, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(jpProdutoLayout.createSequentialGroup()
                 .addGroup(jpProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jpProdutoLayout.createSequentialGroup()
                         .addGap(144, 144, 144)
                         .addComponent(jbInserirProduto))
                     .addGroup(jpProdutoLayout.createSequentialGroup()
-                        .addGap(118, 118, 118)
-                        .addComponent(jbRemoverProduto)))
+                        .addGap(122, 122, 122)
+                        .addComponent(jlIdProduto2, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpProdutoLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jpProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpProdutoLayout.createSequentialGroup()
-                        .addComponent(jlIdProduto1)
-                        .addGap(123, 123, 123))
-                    .addComponent(jbVoltar, javax.swing.GroupLayout.Alignment.TRAILING)))
         );
         jpProdutoLayout.setVerticalGroup(
             jpProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -233,6 +234,7 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
     private void jbRemoverProdutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbRemoverProdutoMouseClicked
         try {
             int id = Integer.parseInt(tfDeletar.getText());
+            tfDeletar.setText("");
             h2.abrirConexao();
             h2.DeleteProduto(id);
             h2.fecharConexao();

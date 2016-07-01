@@ -15,6 +15,14 @@ import javax.swing.table.AbstractTableModel;
 public class ProdutoModel extends AbstractTableModel {
     
     private List<Produto> lista;
+    
+    private String[] columnNames = {"Id", "Descrição",
+    "Preço"};
+    
+    @Override
+    public String getColumnName(int index) {
+        return columnNames[index];
+    }
 
     ProdutoModel(List<Produto> listap) {
         this.lista = listap;

@@ -316,7 +316,7 @@ public class TelaVendas extends javax.swing.JFrame {
             showMessageDialog(null, "Favor inserir a ID do Cliente!");
         } 
         if (tfValorRecebido.getText().isEmpty()) {
-            showMessageDialog(null, "Favor inserir o valor total!");
+            showMessageDialog(null, "Favor inserir o valor recebido!");
         } else {
             try {
                 h2.abrirConexao();

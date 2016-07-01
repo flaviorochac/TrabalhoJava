@@ -11,6 +11,8 @@ import java.util.List;
 import br.univel.Cliente;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -55,11 +57,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
         tabela = new javax.swing.JTable();
         jbCliente = new javax.swing.JButton();
         jbProduto = new javax.swing.JButton();
-        jlwhatever = new javax.swing.JLabel();
+        jlDB = new javax.swing.JLabel();
         jlOperacoes = new javax.swing.JLabel();
         jbCadastroProduto = new javax.swing.JButton();
         jbCadastrarCliente = new javax.swing.JButton();
         jbVendas = new javax.swing.JButton();
+        jbExportarXML = new javax.swing.JButton();
+        jbImportarXML = new javax.swing.JButton();
+        jlXML = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocation(new java.awt.Point(0, 0));
@@ -95,7 +100,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
 
-        jlwhatever.setText("Leitura de Dados do Banco");
+        jlDB.setText("Leitura de Dados do Banco");
 
         jlOperacoes.setText("Operações");
 
@@ -120,49 +125,76 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
 
+        jbExportarXML.setText("Exportar XML");
+        jbExportarXML.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jbExportarXMLMouseClicked(evt);
+            }
+        });
+
+        jbImportarXML.setText("Importar XML");
+        jbImportarXML.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jbImportarXMLMouseClicked(evt);
+            }
+        });
+
+        jlXML.setText("Backup - XML");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jspTabela, javax.swing.GroupLayout.DEFAULT_SIZE, 792, Short.MAX_VALUE)
+            .addComponent(jspTabela, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGap(77, 77, 77)
-                .addComponent(jlwhatever)
+                .addContainerGap()
+                .addComponent(jbExportarXML, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jbImportarXML, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 98, Short.MAX_VALUE)
+                .addComponent(jbCadastroProduto)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jbCadastrarCliente)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jbVendas)
+                .addGap(26, 26, 26))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(139, 139, 139)
+                .addComponent(jlXML)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jlOperacoes)
-                .addGap(200, 200, 200))
+                .addGap(173, 173, 173))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jbCliente)
-                        .addGap(45, 45, 45)
+                        .addGap(18, 18, 18)
                         .addComponent(jbProduto))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(306, 306, 306)
-                        .addComponent(jbCadastroProduto)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jbCadastrarCliente)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jbVendas)))
+                        .addGap(62, 62, 62)
+                        .addComponent(jlDB)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(21, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jlwhatever)
+                    .addComponent(jlXML)
                     .addComponent(jlOperacoes))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(4, 4, 4)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jbExportarXML)
+                    .addComponent(jbImportarXML)
+                    .addComponent(jbCadastrarCliente)
+                    .addComponent(jbVendas)
+                    .addComponent(jbCadastroProduto))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                .addComponent(jlDB)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbCliente)
                     .addComponent(jbProduto))
-                .addGap(4, 4, 4)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jbCadastroProduto)
-                    .addComponent(jbCadastrarCliente)
-                    .addComponent(jbVendas))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jspTabela, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -197,6 +229,28 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private void jbCadastrarClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbCadastrarClienteMouseClicked
         TelaCadastroCliente();
     }//GEN-LAST:event_jbCadastrarClienteMouseClicked
+
+    private void jbExportarXMLMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbExportarXMLMouseClicked
+        try {
+            XMLWriter xw = new XMLWriter();
+            xw.GravarXMLCliente(this.listaClt);
+            xw.GravarXMLProduto(this.listaPrd);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jbExportarXMLMouseClicked
+
+    private void jbImportarXMLMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbImportarXMLMouseClicked
+        try {
+            XMLReader xr = new XMLReader();
+            this.listaClt = xr.lerClientes();
+            this.listaPrd = xr.lerProdutos();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jbImportarXMLMouseClicked
 
     /**
      * @param args the command line arguments
@@ -285,10 +339,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton jbCadastrarCliente;
     private javax.swing.JButton jbCadastroProduto;
     private javax.swing.JButton jbCliente;
+    private javax.swing.JButton jbExportarXML;
+    private javax.swing.JButton jbImportarXML;
     private javax.swing.JButton jbProduto;
     private javax.swing.JButton jbVendas;
+    private javax.swing.JLabel jlDB;
     private javax.swing.JLabel jlOperacoes;
-    private javax.swing.JLabel jlwhatever;
+    private javax.swing.JLabel jlXML;
     private javax.swing.JScrollPane jspTabela;
     private javax.swing.JTable tabela;
     // End of variables declaration//GEN-END:variables
