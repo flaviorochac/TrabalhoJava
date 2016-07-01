@@ -47,7 +47,7 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
         tfIdProduto = new javax.swing.JTextField();
         tfDescricaoProduto = new javax.swing.JTextField();
         tfPrecoProduto = new javax.swing.JTextField();
-        ftDeletar = new javax.swing.JTextField();
+        tfDeletar = new javax.swing.JTextField();
         jlPreçoProduto = new javax.swing.JLabel();
         jlDescricaoProduto = new javax.swing.JLabel();
         jlIdProduto = new javax.swing.JLabel();
@@ -93,6 +93,11 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
         });
 
         jbRemoverProduto.setText("Remover Produto");
+        jbRemoverProduto.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jbRemoverProdutoMouseClicked(evt);
+            }
+        });
 
         jbVoltar.setText("Voltar");
         jbVoltar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -127,7 +132,7 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jpProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jlIdProduto2, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ftDeletar, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tfDeletar, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(jpProdutoLayout.createSequentialGroup()
                 .addGroup(jpProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -169,7 +174,7 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
                 .addComponent(jlIdProduto2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jpProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(ftDeletar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfDeletar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jlProdutoDelete))
                 .addGap(18, 18, 18)
                 .addComponent(jbRemoverProduto)
@@ -212,14 +217,30 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
             Logger.getLogger(TelaCadastroProduto.class.getName()).log(Level.SEVERE, null, ex);
         }
         int id = Integer.parseInt(tfIdProduto.getText());
+        tfIdProduto.setText("");
         String descricao = tfDescricaoProduto.getText();
+        tfDescricaoProduto.setText("");
         BigDecimal preco = new BigDecimal(tfPrecoProduto.getText());
+        tfPrecoProduto.setText("");
         try {
             h2.CadastrarProduto(id, descricao, preco);
+            h2.fecharConexao();
         } catch (SQLException ex) {
             Logger.getLogger(TelaCadastroProduto.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jbInserirProdutoMouseClicked
+
+    private void jbRemoverProdutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbRemoverProdutoMouseClicked
+        try {
+            int id = Integer.parseInt(tfDeletar.getText());
+            h2.abrirConexao();
+            h2.DeleteProduto(id);
+            h2.fecharConexao();
+        } catch (SQLException ex) {
+            Logger.getLogger(TelaCadastroProduto.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }//GEN-LAST:event_jbRemoverProdutoMouseClicked
 
     /**
      * @param args the command line arguments
@@ -258,7 +279,6 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField ftDeletar;
     private javax.swing.JButton jbInserirProduto;
     private javax.swing.JButton jbRemoverProduto;
     private javax.swing.JButton jbVoltar;
@@ -269,6 +289,7 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
     private javax.swing.JLabel jlPreçoProduto;
     private javax.swing.JLabel jlProdutoDelete;
     private javax.swing.JPanel jpProduto;
+    private javax.swing.JTextField tfDeletar;
     private javax.swing.JTextField tfDescricaoProduto;
     private javax.swing.JTextField tfIdProduto;
     private javax.swing.JTextField tfPrecoProduto;

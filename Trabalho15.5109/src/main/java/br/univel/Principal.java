@@ -25,21 +25,21 @@ public class Principal {
 		ClienteParser parserc = new ClienteParser();
 		List<Cliente> listaClt = parserc.getCliente(listac);
 
-                XMLWriter xw = new XMLWriter();
-                xw.GravarXMLCliente(listaClt);
-                xw.GravarXMLProduto(listaPrd);
+                //XMLWriter xw = new XMLWriter();
+                //xw.GravarXMLCliente(listaClt);
+                //xw.GravarXMLProduto(listaPrd);
                 
-                XMLReader xr = new XMLReader();
+                //XMLReader xr = new XMLReader();
                 //xr.lerClientes();   
                 //xr.lerProdutos();
                 
                 H2Con h2 = new H2Con();
                 h2.abrirConexao();
-                h2.resetProduto();
-                h2.createProduto(listaPrd);
+                //h2.resetProduto();
+                //h2.createProduto(listaPrd);
                 //h2.readProduto();
-                h2.resetCliente();
-                h2.createCliente(listaClt);
+                //h2.resetCliente();
+                //h2.createCliente(listaClt);
                 //h2.readCliente();
                 List<Cliente> listaCltH2;
                 List<Produto> listaPrdH2;

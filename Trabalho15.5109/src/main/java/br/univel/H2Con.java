@@ -28,6 +28,17 @@ public class H2Con {
 		
 	}
         
+        public void DeleteProduto(int id) throws SQLException {
+
+		String sql = "DELETE FROM PRODUTO WHERE ID = " + id;
+		try (PreparedStatement ps = con.prepareStatement(sql)) {
+			int res = ps.executeUpdate();
+			System.out.println(res + " tabela limpa!");
+		}
+		
+		
+	}
+        
         public void resetVendas() throws SQLException {
 
 		String sql = "DELETE FROM VENDAS";
@@ -110,6 +121,32 @@ public class H2Con {
                         ps.setString(2, descricao);
                         ps.setBigDecimal(3, preco);
                         
+                        int res = ps.executeUpdate();
+                        ps.close();
+                        // Aqui não garante que executa o close.
+                    } catch (SQLException ex) {
+                        Logger.getLogger(H2Con.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+               
+                System.out.println(" registros alterados.");
+           }
+        public void CadastrarCliente(int id, String nome, String end, int num, String comp, String bairro, String cid, String est, String
+                cep, String tel, String celular) throws SQLException {
+                        PreparedStatement ps;
+                    try {
+                        ps = con.prepareStatement("INSERT INTO CLIENTE (ID, NOME, ENDERECO, NUMERO, COMPLEMENTO, BAIRRO, CIDADE, ESTADO, CEP, TELEFONE, "
+                                + "CELULAR) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                        ps.setInt(1, id);
+                        ps.setString(2, nome);
+                        ps.setString(3, end);
+                        ps.setInt(4, num);
+                        ps.setString(5, comp);
+                        ps.setString(6, bairro);
+                        ps.setString(7, cid);
+                        ps.setString(8, est);
+                        ps.setString(9, cep);
+                        ps.setString(10, tel);
+                        ps.setString(11, celular);
                         int res = ps.executeUpdate();
                         ps.close();
                         // Aqui não garante que executa o close.

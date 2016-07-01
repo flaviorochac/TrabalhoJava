@@ -28,10 +28,18 @@ public class TelaPrincipal extends javax.swing.JFrame {
     
     TelaPrincipal(List<Cliente> lista, List<Produto> listap) {
         initComponents();
-        //this.listaClt = lista;
-        //this.listaPrd = listap;
-        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-        this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
+        try {
+            h2.abrirConexao();
+            listaPrd = h2.readProdutoBanco();
+            listaClt = h2.readClienteBanco();
+            h2.fecharConexao();
+            //this.listaClt = lista;
+            //this.listaPrd = listap;
+            Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+            this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
+        } catch (SQLException ex) {
+            Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -99,6 +107,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
 
         jbCadastrarCliente.setText("Cadastrar Cliente");
+        jbCadastrarCliente.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jbCadastrarClienteMouseClicked(evt);
+            }
+        });
 
         jbVendas.setText("Tela de Vendas");
         jbVendas.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -181,6 +194,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
         TelaVendas();
     }//GEN-LAST:event_jbVendasMouseClicked
 
+    private void jbCadastrarClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbCadastrarClienteMouseClicked
+        TelaCadastroCliente();
+    }//GEN-LAST:event_jbCadastrarClienteMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -195,6 +212,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
        TelaVendas tcp = new TelaVendas(this);
        tcp.setVisible(true);
         
+    }
+    
+    private void TelaCadastroCliente() {
+        this.setVisible(false);
+        TelaCadastroCliente tcc = new TelaCadastroCliente(this);
+        tcc.setVisible(true);
     }
     
     protected void preencheTabela() throws SQLException {
@@ -269,4 +292,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JScrollPane jspTabela;
     private javax.swing.JTable tabela;
     // End of variables declaration//GEN-END:variables
+
+    
 }
