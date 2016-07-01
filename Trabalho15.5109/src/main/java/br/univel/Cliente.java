@@ -32,6 +32,10 @@ public class Cliente {
 		this.celular = celular;
 	}
 
+    Cliente() {
+        
+    }
+
 
 	public int getId() {
 		return id;

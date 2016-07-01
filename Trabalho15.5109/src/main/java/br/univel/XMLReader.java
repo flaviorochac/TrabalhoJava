@@ -27,8 +27,8 @@ public class XMLReader {
         File file = new File("Clientes.xml");
         FileReader fr = new FileReader(file);
         listaClientes = (List<Cliente>) xs.fromXML(fr);
-        /* TESTE DE IMPORTACAO DOS CLIENTES
-        listaClientes.forEach(e -> {
+         //TESTE DE IMPORTACAO DOS CLIENTES
+        /*listaClientes.forEach(e -> {
 			System.out.println("Id: " + e.getId());
 			System.out.println("Nome: " + e.getNome());
 			System.out.println("Endereço: " + e.getEndereco());

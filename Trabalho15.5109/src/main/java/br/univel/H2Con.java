@@ -10,6 +10,8 @@ import java.sql.Statement;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import br.univel.Cliente;
+import java.util.ArrayList;
 
 public class H2Con {
 
@@ -124,6 +126,33 @@ public class H2Con {
 		}
 
 	}
+        public List<Produto> readProdutoBanco() {
+		
+		Statement st = null;
+		ResultSet result = null;
+		List<Produto> listaPrd = new ArrayList<>();
+                Produto p = new Produto();
+                try {
+			try {
+				st = con.createStatement();
+				result = st.executeQuery("SELECT * FROM PRODUTO");
+                                    while (result.next()) {
+					p.setId(result.getInt(1));
+					p.setDescricao(result.getString(2));
+                                        p.setPreco(result.getBigDecimal(3));
+					//System.out.println(id + " " + descricao + " " + preco);
+                                        listaPrd.add(p);
+                            }
+			} finally {
+				if (st != null) st.close();
+				if (result != null) result.close();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+                return listaPrd;
+
+	}
         
         public void readCliente() {
 		
@@ -154,6 +183,42 @@ public class H2Con {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+
+	}
+        
+        public List<Cliente> readClienteBanco() {
+		
+		Statement st = null;
+		ResultSet result = null;
+		List<Cliente> listaRetorno = new ArrayList<Cliente>();
+                try {
+			try {
+                                Cliente c = new Cliente();
+				st = con.createStatement();
+				result = st.executeQuery("SELECT * FROM CLIENTE");
+                                    while (result.next()) {
+                                        c.setId(result.getInt(1));
+					c.setNome(result.getString(2));
+                                        c.setEndereco(result.getString(3));
+                                        c.setNumero(result.getInt(4));
+                                        c.setComplemento(result.getString(5));
+                                        c.setBairro(result.getString(6));
+                                        c.setCidade(result.getString(7));
+                                        c.setEstado(result.getString(8));
+                                        c.setCep(result.getString(9));
+                                        c.setTelefone(result.getString(10));
+                                        c.setCelular(result.getString(11));
+                                        listaRetorno.add(c);
+                                    //System.out.println(id + " " + nome + " " + endereco + " " + numero + " " + complemento + " " + bairro + " " + cidade + " " + estado + " " + cep + " " + telefone + " " + celular);
+                                }
+			} finally {
+				if (st != null) st.close();
+				if (result != null) result.close();
+			}
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+                return listaRetorno;
 
 	}
 

@@ -41,14 +41,15 @@ public class Principal {
                 h2.resetCliente();
                 h2.createCliente(listaClt);
                 //h2.readCliente();
+                List<Cliente> listaCltH2;
+                List<Produto> listaPrdH2;
+                listaCltH2 = h2.readClienteBanco();
+                listaPrdH2 = h2.readProdutoBanco();
                 
-                TelaPrincipal telaP = new TelaPrincipal();
+                
+                TelaPrincipal telaP = new TelaPrincipal(listaCltH2, listaPrdH2);
                 telaP.setVisible(true);
-                
-                
 	}
-
-
 }
 
 

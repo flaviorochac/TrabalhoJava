@@ -26,6 +26,7 @@ public class XMLWriter {
     public void GravarXMLCliente(List<Cliente> listaClt) throws FileNotFoundException{
         
         String clienteXML = xs.toXML(listaClt);
+        //System.out.println(clienteXML);
         File file = new File("Clientes.xml");
         try (PrintWriter print = new PrintWriter(file)) {
             print.write(clienteXML);
@@ -37,7 +38,7 @@ public class XMLWriter {
      public void GravarXMLProduto(List<Produto> listaPrd) throws FileNotFoundException, IOException{
         
         String produtoXML = xs.toXML(listaPrd);
-        System.out.println(produtoXML);
+        //System.out.println(produtoXML);
         File file = new File("Produtos.xml");
         BufferedWriter out = new BufferedWriter(new FileWriter(file));
         out.write(produtoXML);

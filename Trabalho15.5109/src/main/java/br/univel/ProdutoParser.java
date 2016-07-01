@@ -69,7 +69,10 @@ public class ProdutoParser {
 			e.printStackTrace();
 		}
 
-		Produto p = new Produto(id, descricao, preco);
+		Produto p = new Produto();
+                p.setId(id);
+                p.setDescricao(descricao);
+                p.setPreco(preco);
 		return p;
 	}
 

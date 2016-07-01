@@ -18,10 +18,13 @@ import java.util.ArrayList;
 public class TelaPrincipal extends javax.swing.JFrame {
     
 
-
-
-    TelaPrincipal() {
+    List<Cliente> listaClt = new ArrayList<>();
+    List<Produto> listaPrd = new ArrayList<>();
+    
+    TelaPrincipal(List<Cliente> lista, List<Produto> listap) {
         initComponents();
+        this.listaClt = lista;
+        this.listaPrd = listap;
     }
 
     /**
@@ -37,6 +40,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         tabela = new javax.swing.JTable();
         Cliente = new javax.swing.JButton();
         Produto = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(792, 400));
@@ -68,27 +72,36 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setText("Leitura de Dados do Banco");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 792, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 792, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGap(71, 71, 71)
-                .addComponent(Cliente)
-                .addGap(120, 120, 120)
-                .addComponent(Produto)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(Cliente)
+                        .addGap(45, 45, 45)
+                        .addComponent(Produto))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(77, 77, 77)
+                        .addComponent(jLabel1)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 55, Short.MAX_VALUE)
+                .addContainerGap(21, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Cliente)
                     .addComponent(Produto))
-                .addGap(48, 48, 48)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(38, 38, 38)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -106,13 +119,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     protected void preencheTabela() {
+                H2Con h2 = new H2Con();
+		//ClienteReader readerc = new ClienteReader();
+		//List<String> listac = readerc.lerArquivoCliente();
 
-		ClienteReader readerc = new ClienteReader();
-		List<String> listac = readerc.lerArquivoCliente();
-
-		ClienteParser parserc = new ClienteParser();
-		List<Cliente> listaClt = parserc.getCliente(listac);
-
+		//ClienteParser parserc = new ClienteParser();
+		//List<Cliente> listaClt = parserc.getCliente(listac);
+                //List<Cliente> listaClt = h2.readClienteBanco();
 		ClienteModel model = new ClienteModel(listaClt);
 		tabela.setModel(model);
 
@@ -120,11 +133,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
     
     protected void preencheTabelaProduto() {
 
-		ArquivoReader reader = new ArquivoReader();
-		List<String> listap = reader.lerArquivo();
+		//ArquivoReader reader = new ArquivoReader();
+		//List<String> listap = reader.lerArquivo();
 
-		ProdutoParser parser = new ProdutoParser();
-		List<Produto> listaPrd = parser.getProduto(listap);
+		//ProdutoParser parser = new ProdutoParser();
+		//List<Produto> listaPrd = parser.getProduto(listap);
 
 		ProdutoModel model = new ProdutoModel(listaPrd);
 		tabela.setModel(model);
@@ -158,18 +171,18 @@ public class TelaPrincipal extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TelaPrincipal().setVisible(true);
+                //new TelaPrincipal().setVisible(true);
             }
         });
         
         
     }
-    
- 
+   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Cliente;
     private javax.swing.JButton Produto;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tabela;
     // End of variables declaration//GEN-END:variables

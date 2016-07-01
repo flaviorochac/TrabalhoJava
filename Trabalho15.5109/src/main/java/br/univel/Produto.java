@@ -8,11 +8,8 @@ public class Produto {
 	private String descricao;
 	private BigDecimal preco;
 
-	public Produto(int id, String descricao, BigDecimal preco) {
-		super();
-		this.id = id;
-		this.descricao = descricao;
-		this.preco = preco;
+	public Produto() {
+		
 	}
 
 	public int getId() {
